@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const scoreElement = document.getElementById('score');
     const bestScoreElement = document.getElementById('best-score');
     const scoreAdditionElement = document.getElementById('score-addition');
+    const screenshotBtn = document.getElementById('screenshot-btn');
     const restartBtn = document.getElementById('restart-btn');
     const retryBtn = document.getElementById('retry-btn');
     const gameMessage = document.getElementById('game-message');
@@ -296,6 +297,30 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 move(dy > 0 ? 3 : 1);
             }
+        }
+    });
+
+    screenshotBtn.addEventListener('click', () => {
+        if (typeof html2canvas !== 'undefined') {
+            const appContainer = document.querySelector('.app-container');
+            const originalText = screenshotBtn.textContent;
+            screenshotBtn.textContent = '⏳';
+
+            html2canvas(appContainer, {
+                backgroundColor: '#0f172a',
+                scale: 2
+            }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = '2048-captura.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+                screenshotBtn.textContent = originalText;
+            }).catch(err => {
+                console.error("Error al capturar pantalla:", err);
+                screenshotBtn.textContent = originalText;
+            });
+        } else {
+            alert('La librería para capturas de pantalla no está cargada aún.');
         }
     });
 

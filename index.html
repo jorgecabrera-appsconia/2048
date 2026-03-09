@@ -28,7 +28,11 @@
 
         <div class="game-intro">
             <p>¡Une los números para llegar a la <strong>casilla 2048!</strong></p>
-            <button class="btn-primary" id="restart-btn">Nuevo Juego</button>
+            <div style="display: flex; gap: 8px;">
+                <button class="btn-primary" id="screenshot-btn" style="padding: 12px 16px;"
+                    title="Capturar Pantalla">📸</button>
+                <button class="btn-primary" id="restart-btn">Nuevo Juego</button>
+            </div>
         </div>
 
         <div class="game-container">
@@ -51,10 +55,12 @@
         <div class="game-explanation">
             <p><strong class="important">Cómo jugar:</strong> Usa las <strong>flechas de dirección</strong> o
                 <strong>desliza</strong> para mover las casillas. Las casillas con el mismo número se fusionan al
-                tocarse. ¡Súmalas para llegar a <strong>2048!</strong></p>
+                tocarse. ¡Súmalas para llegar a <strong>2048!</strong>
+            </p>
         </div>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="script.js"></script>
 </body>
 
