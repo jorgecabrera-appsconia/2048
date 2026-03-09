@@ -9,6 +9,24 @@ document.addEventListener('DOMContentLoaded', () => {
     const gameMessage = document.getElementById('game-message');
     const messageText = document.getElementById('message-text');
 
+    const emojiMap = {
+        2: '🐭',
+        4: '🐱',
+        8: '🐶',
+        16: '🦊',
+        32: '🦁',
+        64: '🐯',
+        128: '🐻',
+        256: '🐼',
+        512: '🐨',
+        1024: '🦖',
+        2048: '🦄',
+        4096: '🐉',
+        8192: '🪐',
+        16384: '🌌',
+        32768: '👑'
+    };
+
     let grid = [];
     let score = 0;
     let bestScore = localStorage.getItem('2048-bestScore') || 0;
@@ -69,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const inner = document.createElement('div');
         inner.className = 'tile-inner';
-        inner.textContent = value;
+        inner.textContent = emojiMap[value] || value;
 
         element.appendChild(inner);
         // Start position
