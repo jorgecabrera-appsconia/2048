@@ -7,6 +7,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const screenshotBtn = document.getElementById('screenshot-btn');
     const restartBtn = document.getElementById('restart-btn');
     const retryBtn = document.getElementById('retry-btn');
+    const installBtn = document.getElementById('install-btn');
+    let deferredPrompt;
     const gameMessage = document.getElementById('game-message');
     const messageText = document.getElementById('message-text');
 
@@ -298,6 +300,29 @@ document.addEventListener('DOMContentLoaded', () => {
                 move(dy > 0 ? 3 : 1);
             }
         }
+    });
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+    });
+
+    installBtn.addEventListener('click', async () => {
+        if (deferredPrompt) {
+            deferredPrompt.prompt();
+            const { outcome } = await deferredPrompt.userChoice;
+            console.log(`User response to the install prompt: ${outcome}`);
+            deferredPrompt = null;
+            installBtn.style.display = 'none';
+        } else {
+            alert('El juego no puede ser instalado en este momento.\n\nAsegúrate de estar ejecutando el juego desde un servidor (ej. Live Server, un hosting web) y no desde un archivo local, o de no haberlo instalado ya.');
+        }
+    });
+
+    window.addEventListener('appinstalled', () => {
+        installBtn.style.display = 'none';
+        deferredPrompt = null;
+        console.log('PWA fue instalada');
     });
 
     screenshotBtn.addEventListener('click', () => {
